@@ -1,5 +1,4 @@
 # requery.js
-RequiresJS_2.0_API中文
 
 1.引入js文件
 <script  data-main=”js /main”  scr=” js/require.js”></script>
