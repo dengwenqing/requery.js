@@ -52,10 +52,10 @@ define(["jquery"],function(require){
 		①、exports值（输出的变量名），表明这个模块外部调用时的名称；
 		②、deps数组，表明该模块的依赖性。
 
-shim{
-　　　　'jquery.scroll': {
-　　　　　　exports: 'jQuery.fn.scroll',
+		shim{
+		    'jquery.scroll': {
+		      exports: 'jQuery.fn.scroll',
 
-　　　　　　deps: ['jquery']
-　　　　}
-}
+		      deps: ['jquery']
+		    }
+		}
