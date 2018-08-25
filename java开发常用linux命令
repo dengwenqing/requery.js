@@ -1,0 +1,257 @@
+1.操作目录
+
+(1). 创建目录
+mkdir dir
+
+(2). 删除目录
+rmdir dir   删除空目录  rm -rf dir递归删除dir目录中所有内容
+
+(3). 重命名或剪切
+mv dir /temp/dir   把dir目录剪切到temp目录下
+
+(4). 查看目录
+ls -la   列表形式显示文件夹里面的文件与目录的详细信息，包含隐藏文件
+
+(5). 拷贝目录
+cp -r /usr /test   将目录/usr下的所有文件及其子目录复制到目录/test中
+
+2.操作文件
+
+(6). 创建文件
+touch test.txt  创建一个文件名为test.txt的文件
+
+(7). 删除文件
+rm  -f test.txt 强制删除test.txt文件,并且不会询问是否要删除
+
+(8). 修改文件
+vim 修改文件分三种模式，四个步骤： 	
+1)命令模式： vim 命令进入命令模式
+2)编辑模式:  输入i 进入编辑模式，输入esc 重新进入命令模式
+3)底行模式:  输入shift + : 进入底行模式
+4)   :q! 强制退出；:wq 保存并退出。 
+
+(9). 查看文件内容
+cat test.txt   查看文件内的所有内容
+more test.txt  分页查看test.text里的内容,按下enter是查看下一行,空格键是下一页
+head test.txt  查看头10行内容
+head -n 3  test.txt  查看头3行内容
+tail -n 3  test.txt  查看尾3行内容
+
+3.打包压缩
+-c 创建新的归档文件（必选项）
+-v 输出文件清单（可选项）
+-z 调用gzip工具进行压缩（可选项）
+-f 文件名由命令台设置（必选项）
+
+(10). 只打包，不压缩
+tar -cvf  /home/file.tar  /home/file  把home目录下的file打包为file.tar
+
+(11). 打包并用gzip压缩
+tar -zcvf /home/file.tar.gz  /home/file 把home目录下的file打包并压缩为file.tar.gz
+
+(12). 列出压缩文件列表
+tar -tzf file.tar.gz
+
+4.解压缩包
+-z  调用gzip工具进行解缩（可选项）
+-x : 获取压缩包里面的文件或者目录
+-v 输出文件清单（可选项）
+-f 文件名由命令台设置（必选项）
+-C  指定解压的路径
+
+(13). 解压缩包
+tar zxvf file.tar.gz -C /dwq/www  将file.tar.gz解压到/dwq/www目录下
+
+5.其他命令
+
+(14). 查看当前工作目录
+pwd
+
+(15). 查看进程
+a  -当前终端所有进程信息
+u  -以用户格式显示进程信息
+x  -显示后台进程运行的参数
+
+ps aux 查看当前终端所有进程的详细信息
+
+(16). 终止线程
+kill -9 19979 终止线程号位19979的线程
+
+(17). 查看文件，包含隐藏文件
+ls -al 
+
+(18). 查找文件
+find /home -name "*.txt"  在/home目录下查找以.txt结尾的文件名
+
+(19). 文本搜索
+1). -n 显示匹配行及行号，大小写敏感
+2). -v 显示不匹配行及行号，大小写敏感
+3). -i 搜索时不区分大小写，大小写不敏感
+
+grep -n hello test.txt  在test.txt文件中搜索包含有hello字符串的结果并显示行号
+
+
+(20). 管道(把上一个命令的结果提供给下一个命令去使用)
+ps aux | grep java 查看java进程的所有详细信息
+
+(21). 立刻关机
+shutdown now 
+
+(22). 重启
+reboot
+
+(23).清屏
+clear
+
+6.权限
+u:属主; g:同一组; o:其他
+-r 只读; -w 只写; -x 只执行
+
+(24). 添加权限
+Chmod u+w test.txt   给test.txt文件权限为属主的添加写入的权限
+
+(25). 修改权限
+Chmod o=,u=r,g=rw test.txt  修改test.txt的文件权限为属主可读,同组可读可写,其他用户没有权限
+
+
+7.定时任务
+
+安装crontab服务：yum install crontabs 
+service crond start   启动定时任务服务
+service crond stop   停止定时任务服务，但定时任务还在，下次可以再启动
+service crond restart   重启定时任务服务
+service crond reload   重新加载定时任务配置文件,不停定时器,只加载配置文件
+
+(26). 每隔1分钟，让Linux输出当前的系统时间到/mydate.txt文件中
+
+分 时 日 月 周
+*  *   *  * *  date  >>  /mydate.txt  每隔一分钟
+*/2  *   *  * *  date  >>  /mydate.txt  每隔两分钟
+
+1. -u user  给指定用户设置定时任务
+2. crontab -l  显示当前用户所有的定时任务
+3. crontab -e  编辑当前用户的定时任务，一行一个定时任务 
+4. crontab -r  删除当前用户所有的定时任务
+
+8.网络管理
+
+(27). 主机名设置
+hostname 主机名
+
+(28). 获取本机的IP地址
+ip addr
+(29). 域名映射
+vi /etc/hosts  用vi编辑器打开hosts文件 
+127.0.0.1 localhost2  浏览器输入localhost2可以访问本地主机
+
+(30). 网络服务管理
+service network status  查看服务的状态
+service network stop  停止服务
+service network start  启动服务
+service network restart  重启服务
+chkconfig  查看所有服务自启配置
+chkconfig network off  关掉网络服务的自动启动
+chkconfig network on  开启网络服务的自动启动
+
+(31). 进程端口的监听
+netstat -a  显示当前虚拟机上运行进程的协议，IP，状态等信息
+
+9.免密登录
+(32). 免密登录
+
+
+10.用户和用户组管理
+
+(33). 添加用户
+useradd zhangshan
+
+(34). 设置密码
+passwd abc123
+
+(35). 删除用户
+userdel zhangshan
+
+(36). 删除用户以及用户目录
+userdel -r zhangshan
+
+(37). 修改用户名
+usermod -l xiaoming zhangsan  修改zhangsan的用户名为xiaoming
+
+(38). 创建用户组
+groupadd itClub  创建新用户组itClub
+
+(39).修改用户组名
+groupmod -n javaClub itClub  将用户组名itClub修改为 javaClub
+
+(40). 将用户添加到新用户组中
+usermod -g javaClub xiaoming  将xiaoming用户添加到javaClub新用户组中
+
+(41). 从用户组中移除用户
+gpasswd -d xiaoming javaClub  从javaClub新用户组中删除xiaoming用户
+
+(42). 删除用户组
+groupdel javaClub
+(43). 为普通用户配置sudo权限
+sudo useradd -m lisi;  以xiaoming普通用户登录,使用sudo创建普通用户 lisi
+
+11.防火墙管理
+
+(44).查询防火墙状态
+systemctl status firewalld.service   查询防火墙状态，.service可以省略
+
+(45). 启动防火墙
+systemctl start firewalld.service  启动防火墙
+
+(46). 关闭防火墙
+systemctl stop firewalld.service  停止/关闭防火墙
+
+(47). 禁止防火墙开机自启
+systemctl disable firewalld.service 
+
+(48). 允许防火墙开机自启
+systemctl enable firewalld.service  
+
+12.安装软件包
+
+(50). 如何查询linux中安装哪些rpm软件
+rpm -qa
+
+(51). 查询mysql软件是否安装
+rpm -q mysql
+
+(52). 查询mysql软件包信息
+rpm -qi mysql
+
+(53). 查询mysql软件包中的文件
+rpm -ql mysql
+
+(54). 查询mysql文件所属的软件包
+rpm -qf mysql
+
+(55). 查询mysql包信息对这个软件的介绍
+rpm -qp mysql
+
+(56). 启动mysql
+bin/mysqld_safe --user=mysql & （以后台的方式启动）
+
+(57). 如何进入mysql界面
+./mysql -u -root -p
+
+(58). 安装rpm包
+rpm -ivh mysql
+
+i - install 安装
+v - verbose 提示
+h - hash 进度条
+
+(59). 测试安装
+rpm --test    测试安装
+
+(60). 删除rpm包
+rpm -e mysql
+
+(61). 升级rpm
+rpm -U mysql
+
+(62). 删除软件及依赖包
+rpm -e --nodeps mysql
